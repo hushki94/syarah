@@ -1,0 +1,15 @@
+RewriteEngine on
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# if a directory or a file exists, use the request directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward the request to index.php
+RewriteRule . index.php
+
+RewriteRule ^robots\.txt$ /robots.php [L]
+
+Options -Indexes
