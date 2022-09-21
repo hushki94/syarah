@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     'options' => ['enctype' => 'multipart/form-data'],
 ]);?>
 
-    <?=$form->field($model, 'category')->dropDownList(ArrayHelper::map(Category::find()->all(), 'id' , function($model){
+    <?=$form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::find()->all(), 'id' , function($model){
         return $model->title;
     }) ,['prompt'=>'--- Select Category ---'])?>
 

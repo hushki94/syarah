@@ -53,12 +53,17 @@ AppAsset::register($this);
         echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout text-decoration-none']
+                ['class' => 'btn btn-dark logout text-decoration-none text-white']
             )
             . Html::endForm();
     }
     NavBar::end();
     ?>
+    <a href="/cart/index" class="btn btn-outline-dark top" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo 1 ?></span>
+                        </a>
 </header>
 
 <main role="main" class="flex-shrink-0">

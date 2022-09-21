@@ -58,6 +58,24 @@ class CartController extends Controller
         
     }
 
+    public function actionMain()
+    {
+        if(!Yii::$app->user->isGuest){
+
+            $cart = \Yii::$app->cart;
+            $quantity = $cart->getTotalCount();
+            // dd($cartItems);
+            // VarDumper::dump($cartItems);
+    
+            return $this->render('main', [
+                'total' => $quantity
+            ]);
+        }
+
+        return $this->redirect('/site/login');
+        
+    }
+
     public function actionAdd($id , $quantity=1)
     {
 
