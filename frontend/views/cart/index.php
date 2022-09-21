@@ -72,5 +72,12 @@ use yii\helpers\Url;
         
             </div>
 
+            <div class="card-body text-left">
+
+            <a class="btn btn-primary">Total Quantity: <?php echo $quantity ?> </a>
+            
+        
+            </div>
+
     </div>
 </div>

@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -62,7 +63,7 @@ AppAsset::register($this);
     <a href="/cart/index" class="btn btn-outline-dark top" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo 1 ?></span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
                         </a>
 </header>
 

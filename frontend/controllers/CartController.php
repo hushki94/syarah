@@ -20,11 +20,7 @@ use yii\web\Response;
 class CartController extends Controller
 {
 
-    // public $cart;
-    // public function __construct()
-    // {
-    //     $this->cart = \Yii::$app->cart;
-    // }
+    
     public function behaviors()
     {
         return [
@@ -45,12 +41,14 @@ class CartController extends Controller
             $cart = \Yii::$app->cart;
             $cartItems = $cart->getItems();
             $total = $cart->getTotalCost();
-            // dd($cartItems);
-            // VarDumper::dump($cartItems);
+            $quantity = $cart->getTotalCount();
+
     
             return $this->render('index', [
                 'items' => $cartItems,
-                'total' => $total
+                'total' => $total,
+                'quantity' => $quantity
+
             ]);
         }
 
@@ -60,19 +58,15 @@ class CartController extends Controller
 
     public function actionMain()
     {
-        if(!Yii::$app->user->isGuest){
+        //TODO
+        $cart = \Yii::$app->cart;
+        $quantity = $cart->getTotalCount();
+        $this->quantity = $quantity;
 
-            $cart = \Yii::$app->cart;
-            $quantity = $cart->getTotalCount();
-            // dd($cartItems);
-            // VarDumper::dump($cartItems);
-    
-            return $this->render('main', [
-                'total' => $quantity
-            ]);
-        }
+        return $this->render('main', [
+            'total' => $quantity
+        ]);
 
-        return $this->redirect('/site/login');
         
     }
 
@@ -113,7 +107,6 @@ class CartController extends Controller
 
         $cart = \Yii::$app->cart;
         $cart->clear();
-        // $cart->plus($product->id, $quantity);
         return $this->redirect('index');
 
     }
