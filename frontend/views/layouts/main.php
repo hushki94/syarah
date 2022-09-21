@@ -31,7 +31,7 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
+            'class' => 'navbar navbar-expand-lg navbar-light bg-light',
         ],
     ]);
     $menuItems = [
@@ -55,6 +55,19 @@ AppAsset::register($this);
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout text-decoration-none']
             )
+             ,Html::beginForm(['/site/cart'], 'get', ['class' => 'd-flex'])
+            .Html::submitButton(
+                'Cart (0)',
+                ['class' => 'btn btn-outline-dark']
+            )
+            // . Html::endForm();
+            // <form class="d-flex">
+            //             <button class="btn btn-outline-dark" type="submit">
+            //                 <i class="bi-cart-fill me-1"></i>
+            //                 Cart
+            //                 <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+            //             </button>
+            //         </form>
             . Html::endForm();
     }
     NavBar::end();
