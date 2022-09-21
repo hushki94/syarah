@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\Product;
+use common\models\ProductSearch;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -89,6 +90,18 @@ class SiteController extends Controller
         return $this->render('index' , [
             'dataProvider' => $dataProvider,
             'categories' => $categories
+        ]);
+    }
+
+    public function actionProductByCategory($id)
+    {
+        $searchModel = new ProductSearch();
+        $searchModel->category_id = $id;
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('_product_by_category', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

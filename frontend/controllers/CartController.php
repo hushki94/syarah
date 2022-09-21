@@ -40,19 +40,21 @@ class CartController extends Controller
 
     public function actionIndex()
     {
-        // if(Yii::$app->user->isGuest){
+        if(!Yii::$app->user->isGuest){
 
-        // }
-        $cart = \Yii::$app->cart;
-        $cartItems = $cart->getItems();
-        $total = $cart->getTotalCost();
-        // dd($cartItems);
-        // VarDumper::dump($cartItems);
+            $cart = \Yii::$app->cart;
+            $cartItems = $cart->getItems();
+            $total = $cart->getTotalCost();
+            // dd($cartItems);
+            // VarDumper::dump($cartItems);
+    
+            return $this->render('index', [
+                'items' => $cartItems,
+                'total' => $total
+            ]);
+        }
 
-        return $this->render('index', [
-            'items' => $cartItems,
-            'total' => $total
-        ]);
+        return $this->redirect('/site/login');
         
     }
 

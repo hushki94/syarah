@@ -1,6 +1,10 @@
 <?php
 
 /** @var yii\web\View $this */
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 /** @var \yii\data\ActiveDataProvider $dataProvider */
 
 
@@ -23,11 +27,13 @@ $this->title = 'My Yii Application';
                 </div>
                 <div class="row text-center">
                     <?php foreach($categories as $category): ?>
-                    <div class="col-md-4">
+                    <div class="col-md-4 border">
+                    <?= Html::a('products' , Url::to(['/site/product-by-category' , 'id' => $category->id] , ['options' =>['class' =>'btn btn-outline-dark mt-auto']]))?>
                         <span class="fa-stack fa-4x">
-                            <img src="https://as2.ftcdn.net/v2/jpg/01/71/86/53/1000_F_171865305_SN6KBMjHdhoI7ep7dH464TrIKmlzZF8r.jpg" alt="">
+                            <img src="https://as2.ftcdn.net/v2/jpg/01/71/86/53/1000_F_171865305_SN6KBMjHdhoI7ep7dH464TrIKmlzZF8r.jpg" class="w-50 m-4 rounded-circle" alt="">
                         </span>
                         <h4 class="my-3"><?php echo $category->title ?></h4>
+
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                     </div>
                     <?php endforeach; ?>
