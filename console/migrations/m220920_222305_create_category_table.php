@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%category}}`.
  */
-class m220920_160926_create_category_table extends Migration
+class m220920_222305_create_category_table extends Migration
 {
     /**
      * {@inheritdoc}
@@ -15,7 +15,7 @@ class m220920_160926_create_category_table extends Migration
         $this->createTable('{{%category}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(),
-            'created_at' => $this->dateTime()->defaultValue('CURRENT_TIMESTAMP'),
+            'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime(),
         ]);
     }

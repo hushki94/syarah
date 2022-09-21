@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "product".
@@ -18,6 +20,19 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+
+    /**
+     * @var \yii\web\UploadedFile
+     */
+    public $imageFile;
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -34,6 +49,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [['category_id', 'price'], 'integer'],
             [['body'], 'string'],
+            [['imageFile'] , 'image' , 'extensions' => 'png ,jpg , jpeg' , 'maxSize' => 5*1024*1024],
             [['title', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -62,5 +78,39 @@ class Product extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        if($this->imageFile){
+            $this->image = Yii::$app->security->generateRandomString(20)."/".$this->imageFile->name;
+        }
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        $saved = parent::save($runValidation,$attributeNames);
+
+        if($saved && $this->imageFile){
+            $fullPath = Yii::getAlias('@frontend/web/storage/products/'.$this->image);
+            $dir = dirname($fullPath);
+            if(!FileHelper::createDirectory($dir) || !$this->imageFile->saveAs($fullPath)){
+                $transaction->rollBack();
+                return false;
+            }
+        }
+        
+        
+        $transaction->commit();
+        return $saved;
+    }
+
+
+    public function getImageUrl()
+    {
+        if($this->image){
+            return Yii::$app->params['frontendUrl'].'/storage/products/'.$this->image;
+
+        }
+        return 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';
     }
 }

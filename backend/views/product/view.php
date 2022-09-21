@@ -30,11 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'category_id',
+            'category_id.title',
             'title',
             'body:ntext',
             'price',
-            'image',
+            [
+                'attribute' => 'image',
+                'format' => ['html'],
+                'value' => function($model)
+                {
+                    /** @var /common/models/Product $model */
+                    return Html::img($model->getImageUrl() , ['style' => 'width:50px']);
+                }
+            ],
         ],
     ]) ?>
 

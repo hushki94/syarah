@@ -27,20 +27,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'attribute' => 'id',
+                'contentOptions' => ['style'=>'width:50px']
+            ],
+            [
+                'attribute' => 'image',
+                'content' => function($model)
+                {
+                    /** @var /common/models/Product $model */
+                    return Html::img($model->getImageUrl() , ['style' => 'width:50px']);
+                }
+            ],
             'category_id',
             'title',
             'body:ntext',
             'price',
             //'image',
+            'created_at:datetime',
+            'updated_at:datetime',
+
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Product $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
+
         ],
     ]); ?>
 

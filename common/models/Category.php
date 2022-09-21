@@ -3,14 +3,15 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "category".
  *
  * @property int $id
  * @property string|null $title
- * @property string|null $created_at
- * @property string|null $updated_at
+ * @property int $created_at
+ * @property int $updated_at
  *
  * @property Product[] $products
  */
@@ -24,13 +25,21 @@ class Category extends \yii\db\ActiveRecord
         return 'category';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::class,
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at'], 'required'],
+            [['created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
