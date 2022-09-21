@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Category;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +16,9 @@ use yii\widgets\ActiveForm;
     'options' => ['enctype' => 'multipart/form-data'],
 ]);?>
 
-    <?=$form->field($model, 'category_id')->textInput()?>
+    <?=$form->field($model, 'category')->dropDownList(ArrayHelper::map(Category::find()->all(), 'id' , function($model){
+        return $model->title;
+    }) ,['prompt'=>'--- Select Category ---'])?>
 
     <?=$form->field($model, 'title')->textInput(['maxlength' => true])?>
 

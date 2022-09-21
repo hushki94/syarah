@@ -45,11 +45,13 @@ class CartController extends Controller
         // }
         $cart = \Yii::$app->cart;
         $cartItems = $cart->getItems();
+        $total = $cart->getTotalCost();
         // dd($cartItems);
         // VarDumper::dump($cartItems);
 
         return $this->render('index', [
-            'items' => $cartItems
+            'items' => $cartItems,
+            'total' => $total
         ]);
         
     }
@@ -84,5 +86,15 @@ class CartController extends Controller
 
         $cart->plus($product->id, $quantity);
         return $this->redirect('index');
+    }
+
+    public function actionRemoveAll()
+    {
+
+        $cart = \Yii::$app->cart;
+        $cart->clear();
+        // $cart->plus($product->id, $quantity);
+        return $this->redirect('index');
+
     }
 }

@@ -8,7 +8,8 @@ use yii\helpers\Url;
 ?>
 
     <div class="card h-100">
-        <!-- Sale badge-->
+        <!-- Sale badge--> 
+        <?= Html::a('view' , Url::to(['/site/view' , 'id' => $model->id]))?>
         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem"><?php echo $model->category->title ?></div>
         <!-- Product image-->
         <img class="card-img-top" src="<?php echo $model->getImageUrl() ?>" alt="..." />
@@ -26,6 +27,6 @@ use yii\helpers\Url;
         </div>
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><?= Html::a('addToCart' , Url::to(['/cart/add' , 'id' => $model->id]))?></div>
+            <div class="text-center"><?= Html::a('addToCart' , Url::to(['/cart/add' , 'id' => $model->id] , ['class' =>'btn btn-outline-dark mt-auto']))?></div>
         </div>
     </div>

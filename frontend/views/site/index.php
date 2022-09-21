@@ -22,30 +22,15 @@ $this->title = 'My Yii Application';
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row text-center">
+                    <?php foreach($categories as $category): ?>
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            <img src="https://as2.ftcdn.net/v2/jpg/01/71/86/53/1000_F_171865305_SN6KBMjHdhoI7ep7dH464TrIKmlzZF8r.jpg" alt="">
                         </span>
-                        <h4 class="my-3">E-Commerce</h4>
+                        <h4 class="my-3"><?php echo $category->title ?></h4>
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                     </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Responsive Design</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <span class="fa-stack fa-4x">
-                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <h4 class="my-3">Web Security</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>

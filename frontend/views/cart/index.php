@@ -37,8 +37,8 @@ use yii\helpers\Url;
                              alt="<?php echo $product->title ?>">
                     </td>
                     <td><?php echo $product->price ?></td>
-                    <td><?php echo 1 ?>
-                    <?php echo \yii\helpers\Html::a('+', Url::to(['/cart/addQuantity' , 'id' => $product->id]), [
+                    <td><?php echo $item->getQuantity(); ?>
+                    <?php echo \yii\helpers\Html::a('+', Url::to(['/cart/add-quantity' , 'id' => $product->id]), [
                             'class' => 'btn btn-primary btn-sm',
                             // 'data-method' => 'post',
                     ]) ?></td>
@@ -57,20 +57,20 @@ use yii\helpers\Url;
 
         <div class="card-body text-right">
             <a href="<?php echo \yii\helpers\Url::to(['/cart/checkout']) ?>" class="btn btn-primary">Checkout</a>
-            <?php foreach ($items as $item): ?>
-                <?php $product = $item->getProduct(); ?>
-                <?php $total = 0; ?>
-                <?php $total = $total + $product->price; ?> 
+            
                 
             
-            <?php endforeach; ?>
+                
+            </div>
+            <div class="card-body text-left">
+                
+                <span class="btn btn-primary">Total: <?php echo $total ?>$ </span>
+            </div>
+            <div class="card-body text-left">
 
-        </div>
-        <div class="card-body text-left">
-
-        <span class="btn btn-primary">Total: <?php echo $total ?>$ </span>
-        </div>
+            <a href="<?php echo \yii\helpers\Url::to(['/cart/remove-all']) ?>" class="btn btn-primary">Remove All</a>
         
+            </div>
 
     </div>
 </div>

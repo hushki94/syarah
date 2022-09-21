@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Category;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -78,6 +79,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $query = Product::find();
+        $categories = Category::find()->all();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -86,6 +88,15 @@ class SiteController extends Controller
         ]);
         return $this->render('index' , [
             'dataProvider' => $dataProvider,
+            'categories' => $categories
+        ]);
+    }
+
+    public function actionView($id)
+    {
+        $model = Product::findOne($id);
+        return $this->render('view' , [
+            'product' => $model,
         ]);
     }
 
