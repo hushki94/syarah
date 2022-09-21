@@ -107,8 +107,16 @@ class Product extends \yii\db\ActiveRecord
 
     public function getImageUrl()
     {
-        if($this->image){
-            return Yii::$app->params['frontendUrl'].'/storage/products/'.$this->image;
+
+        return self::formatImageUrl($this->image);
+       
+    }
+
+    public static function formatImageUrl($imagePath)
+    {
+
+        if($imagePath){
+            return Yii::$app->params['frontendUrl'].'/storage/products/'.$imagePath;
 
         }
         return 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';

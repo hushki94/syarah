@@ -2,6 +2,9 @@
 
 /** @var common\models\Product $model */
 
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 ?>
 
     <div class="card h-100">
@@ -23,6 +26,6 @@
         </div>
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+            <div class="text-center"><?= Html::a('addToCart' , Url::to(['/cart/add' , 'id' => $model->id]))?></div>
         </div>
     </div>

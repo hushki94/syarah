@@ -18,7 +18,7 @@ $this->title = 'My Yii Application';
         <section class="page-section py-5" id="services">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Services</h2>
+                    <h2 class="section-heading text-uppercase">Our Categories</h2>
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
                 <div class="row text-center">
@@ -54,10 +54,10 @@ $this->title = 'My Yii Application';
         <!-- Section Product-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col-md-12">
                 <?php echo \yii\widgets\ListView::widget([
                         'dataProvider' => $dataProvider,
-                        'layout' => '{summary} <div class="">{items}</div> {pager}',
+                        'layout' => '{summary} <div class="row">{items}</div> {pager}',
                         'itemView' => '_product_item',
                         'itemOptions' => [
                             'class' => 'col mb-5'
