@@ -22,8 +22,8 @@ class m220920_161321_create_product_table extends Migration
             'body' => $this->text(),
             'price' => $this->integer(),
             'image' => $this->string(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer(),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
         ]);
 
         // creates index for column `category_id`

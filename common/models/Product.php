@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\helpers\FileHelper;
 
 /**
@@ -29,7 +31,16 @@ class Product extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => function() {
+                    return date('Y-m-d H:i:s');
+                },
+            ]
         ];
     }
 
@@ -48,6 +59,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['category_id', 'price'], 'integer'],
+            [['created_at', 'updated_at'], 'datetime'],
             [['body'], 'string'],
             [['imageFile'] , 'image' , 'extensions' => 'png ,jpg , jpeg' , 'maxSize' => 5*1024*1024],
             [['title', 'image'], 'string', 'max' => 255],

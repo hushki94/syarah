@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "category".
@@ -28,7 +30,14 @@ class Category extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::class,
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => new Expression('NOW()'),
+            ]
         ];
     }
 
@@ -38,8 +47,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at'], 'required'],
-            [['created_at', 'updated_at'], 'integer'],
+            // [['created_at', 'updated_at'], 'required'],
+            [['created_at', 'updated_at'], 'datetime'],
             [['title'], 'string', 'max' => 255],
         ];
     }
