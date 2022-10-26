@@ -133,4 +133,9 @@ class Product extends \yii\db\ActiveRecord
         }
         return 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';
     }
+
+    public function getShortBody()
+    {
+        return \yii\helpers\BaseStringHelper::truncate($this->body,10 , '...See more');
+    }
 }

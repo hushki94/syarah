@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Category;
-use common\models\CategorySearch;
+use common\models\search\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

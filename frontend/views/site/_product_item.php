@@ -3,6 +3,7 @@
 /** @var common\models\Product $model */
 
 use yii\helpers\Html;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 
 ?>
@@ -18,15 +19,15 @@ use yii\helpers\Url;
             <div class="text-center">
                 <!-- Product name-->
                 <h5 class="fw-bolder"><?php echo $model->title ?></h5>
-                <p class="fw-bolder"><?php echo $model->body ?></p>
+                <p class="fw-bolder"><?php echo $model->getShortBody() ?></p>
                 <!-- Product price-->
                 <!-- <span class="text-muted text-decoration-line-through">$20.00</span> -->
-                <?php echo $model->price ?>$
+                <?php echo Yii::$app->formatter->asCurrency($model->price) ?>$
             </div>
             
         </div>
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><?= Html::a('addToCart' , Url::to(['/cart/add' , 'id' => $model->id] , ['class' =>'btn btn-outline-dark mt-auto']))?></div>
+            <div class="text-center btn btn-outline-dark mt-auto"><?= Html::a('addToCart' , Url::to(['/cart/add' , 'id' => $model->id] , ['class' =>'btn btn-outline-dark mt-auto']))?></div>
         </div>
     </div>
