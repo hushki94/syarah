@@ -31,4 +31,9 @@ class UserAddressQuery extends \yii\db\ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function id($id)
+    {
+        return $this->andWhere(['id' => $id]);
+    }
 }

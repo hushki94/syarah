@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\query\ProductQuery;
+namespace common\models\query;
 
 /**
  * This is the ActiveQuery class for [[\common\models\Product]].
@@ -33,11 +33,18 @@ class ProductQuery extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return \common\models\query\ProductQuery\ProductQuery;
+     * @return \common\models\query\ProductQuery;
      */
 
     public function published()
     {
         return $this->andWhere(['>=', 'price', 10]);
+    }
+    /**
+     * @return \common\models\query\ProductQuery;
+     */
+    public function id($id)
+    {
+        return $this->andWhere(['id' => $id]);
     }
 }

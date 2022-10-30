@@ -23,6 +23,7 @@ use yii\web\IdentityInterface;
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property \common\models\UserAddress[] $addresses
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -31,6 +32,9 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+
+    public $password;
+    public $passwordConfirm;
 
     /**
      * {@inheritdoc}
@@ -56,6 +60,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['first_name', 'last_name', 'username', 'email'], 'required'],
+            [['first_name', 'last_name', 'username', 'email'], 'string', 'max' => 255],
+
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
@@ -112,7 +119,8 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token) {
+    public static function findByVerificationToken($token)
+    {
         return static::findOne([
             'verification_token' => $token,
             'status' => self::STATUS_INACTIVE
@@ -212,4 +220,18 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function getAddresses()
+    {
+        return $this->hasMany(UserAddress::class, ['user_id' => 'id']);
+    }
+
+    /** 
+     * @var \common\models\UserAddress null 
+     * */
+    public function getAddress(): ?UserAddress
+    {
+        return $this->addresses[0] ?? null;
+    }
+
 }

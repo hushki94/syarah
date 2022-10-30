@@ -1,4 +1,5 @@
 <?php
+
 /** @var array $items */
 
 use yii\helpers\Url;
@@ -6,78 +7,52 @@ use yii\helpers\Url;
 ?>
 
 
-<div class="card">
+<div class="card m-4">
     <div class="card-header">
         <h3>Your cart items</h3>
     </div>
     <div class="card-body p-0">
+        <?php if(!empty($items)) : ?>
 
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>Product</th>
-                <th>Image</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>Product</th>
+                    <th>Image</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-            <?php foreach ($items as $item): ?>
-                <?php $product = $item->getProduct(); ?>
-                <?php $totalCost = $item->getCost(); ?>
-
-
-                <tr>
-                    <td><?php echo $product->title ?></td>
-                    <td>
-                        <img src="<?php echo \common\models\Product::formatImageUrl($product->image) ?>"
-                             style="width: 50px;"
-                             alt="<?php echo $product->title ?>">
-                    </td>
-                    <td><?php echo $product->price ?></td>
-                    <td><?php echo $item->getQuantity(); ?>
-                    <?php echo \yii\helpers\Html::a('+', Url::to(['/cart/add-quantity' , 'id' => $product->id]), [
-                            'class' => 'btn btn-primary btn-sm',
-                            // 'data-method' => 'post',
-                    ]) ?></td>
-                    <td><?php echo $totalCost ?></td>
-                    <td>
-                        <?php echo \yii\helpers\Html::a('Delete', ['/cart/delete', 'id' => $product->id], [
-                            'class' => 'btn btn-outline-danger btn-sm',
-                            'data-method' => 'post',
-                            'data-confirm' => 'Are you sure you want to remove this product from cart?'
-                        ]) ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+                <?php foreach ($items as $item) : ?>
+                    <tr data-id="<?php echo $item['id'] ?>" data-url="<?php echo Url::to(['/cart/change-quantity']) ?>">
+                        <td><?php echo $item['title'] ?></td>
+                        <td>
+                            <img src="<?php echo \common\models\Product::formatImageUrl($item['image']) ?>" style="width: 50px;" alt="<?php echo $item['title'] ?>">
+                        </td>
+                        <td><?php echo $item['price'] ?></td>
+                        <td>
+                            <input type="number" min="1" class="form-control item-quantity" style="width:60px" value="<?php echo $item['quantity']; ?>">
+                        </td>
+                        <td><?php echo $item['total_price'] ?></td>
+                        <td>
+                            <?php echo \yii\helpers\Html::a('Delete', ['/cart/delete', 'id' => $item['id']], [
+                                'class' => 'btn btn-outline-danger btn-sm',
+                                'data-method' => 'post',
+                                'data-confirm' => 'Are you sure you want to remove this product from cart?'
+                            ]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
-
         <div class="card-body text-right">
             <a href="<?php echo \yii\helpers\Url::to(['/cart/checkout']) ?>" class="btn btn-primary">Checkout</a>
-            
-                
-            
-                
-            </div>
-            <div class="card-body text-left">
-                
-                <span class="btn btn-primary">Total: <?php echo $total ?>$ </span>
-            </div>
-            <div class="card-body text-left">
-
-            <a href="<?php echo \yii\helpers\Url::to(['/cart/remove-all']) ?>" class="btn btn-primary">Remove All</a>
-        
-            </div>
-
-            <div class="card-body text-left">
-
-            <a class="btn btn-primary">Total Quantity: <?php echo $quantity ?> </a>
-            
-        
-            </div>
-
+        </div>
+        <?php else : ?>
+            <p class="text-muted text-center p-5">There are no items in the cart</p>
+        <?php endif; ?>
     </div>
 </div>
